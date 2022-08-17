@@ -1,6 +1,6 @@
 <template>
-  <div class="app">app.vue
-    
+  <div class="app">
+      <router-view />
   </div>
 </template>
 
@@ -11,8 +11,6 @@ export default {
 </script>
 
 <style lang="less">
-.app {
-  
-}
+
 
 </style>
