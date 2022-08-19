@@ -19,7 +19,13 @@
         :rules="rules.code"
       />
       <div style="margin: 16px">
-        <van-button round block type="info" native-type="submit" :loading="loading" loading-text="..请稍等"
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
+          :loading="loading"
+          loading-text="..请稍等"
           >登录</van-button
         >
       </div>
@@ -28,7 +34,7 @@
 </template>
 
 <script>
-import {loginAPI} from '@/api'
+import { loginAPI } from "@/api";
 
 export default {
   data() {
@@ -41,41 +47,42 @@ export default {
           {
             pattern:
               /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/,
-            message: "请填写有效的电话号码", trigger: 'onBlur'
+            message: "请填写有效的电话号码",
+            trigger: "onBlur",
           },
         ],
-          code: [
-            { required: true, message: '请填写密码', trigger: "onBlur" },
-            { pattern:/^\d{6}$/, message: '请填写6位验证码', trigger: 'onBlur'}
-            ]
+        code: [
+          { required: true, message: "请填写密码", trigger: "onBlur" },
+          { pattern: /^\d{6}$/, message: "请填写6位验证码", trigger: "onBlur" },
+        ],
       },
-      loading: false ,
+      loading: false,
     };
   },
 
   methods: {
-    onSubmit() {
-      this.loading = true,
+    
+    async onSubmit(data) {
+      this.loading = true;
+      try {
 
-      loginAPI({
-        mobile: this.mobile,
-        code: this.code
-      })
-      .then( res => {
-        console.log(res);
-        this.$toast.success('login succesfully')
-      })
-      .catch(err => {
-        console.log(err);
-        this.$toast.fail('failed to login')
-      })
-      .finally ( ()=> {
-        this.loading = false
-      })
-    }
-  }
+        const res = await loginAPI(data)
+
+        this.$store.commit('updateToken', res.data.data);     
+        
+        this.$toast.success("login succesfully");
+        //if succesufl, redirect to user page
+        this.$router.push('/layout/user')
+      } catch{ 
+        
+        this.$toast.fail("failed to login");
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
 };
 </script>
 
-<style>
+<style lang="less">
 </style>
