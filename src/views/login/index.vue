@@ -71,8 +71,11 @@ export default {
         this.$store.commit('updateToken', res.data.data);     
         
         this.$toast.success("login succesfully");
-        //if succesufl, redirect to user page
-        this.$router.push('/layout/user')
+        //if succesufl, redirect to home page
+        const url = this.$route.query.url
+        
+        let location = url? url: '/layout/home'
+        this.$router.push(location)
       } catch{ 
         
         this.$toast.fail("failed to login");
