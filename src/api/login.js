@@ -8,3 +8,19 @@ export const login = (data) => {
         data
     })
 }
+
+export const editProfile = (data) => {
+    return request( {
+        method: 'PATCH',
+        url: '/v1_0/user/profile',
+        data
+    })
+}
+
+export const uploadImg = (data) => {
+    return request( {
+        url: '/v1_0/user/photo',
+        method: 'PATCH',
+        data
+    })
+}

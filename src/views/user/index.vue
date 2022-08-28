@@ -1,5 +1,6 @@
 <template>
   <div class="user">
+    
     <!-- header -->
     <div class="header">
       <van-image
@@ -34,29 +35,49 @@
     </van-row>
     <!-- bottom userInfo -->
     <van-cell-group>
-      <van-cell title="编辑资料" icon="edit" is-link />
+      <van-cell title="编辑资料" icon="edit" is-link to="/user/edit" />
       <van-cell title="小智同学" icon="chat-o" is-link />
       <van-cell title="系统设置" icon="setting-o" is-link />
-      <van-cell title="退出登录" icon="info-o" is-link />
+      <van-cell title="退出登录" icon="info-o" is-link @click="logout"/>
     </van-cell-group>
+
+    
   </div>
 </template>
 
 <script>
-import { userInfoAPI } from "@/api";
+
 export default {
   data() {
     return {
-      userInfo: "",
+      // userInfo: "",
     };
   },
 
   async created() {
     // console.log(this.$store.state.myToken.token)
-    const res = await userInfoAPI()
+    // const res = await userInfoAPI()
 
-    this.userInfo = res.data.data
+    // this.userInfo = res.data.data
+    // this.$store.commit('updateUserInfo', res.data.data)
+
+     this.$store.dispatch('setUserInfo')
   },
+
+  computed: {
+    userInfo() {
+      return this.$store.state.userInfo
+    }
+  },
+
+  methods: {
+    // clear token, user's information
+    logout() {
+      this.$store.commit('logout')
+      this.$toast.success('退出成功')
+      this.$router.push('/login')
+    }
+  }
 };
 </script>
 

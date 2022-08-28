@@ -39,8 +39,8 @@ import { loginAPI } from "@/api";
 export default {
   data() {
     return {
-      mobile: "",
-      code: "",
+      mobile: "13612345678",
+      code: "246810",
       rules: {
         mobile: [
           { required: true, message: "请填写用户名", trigger: "onBlur" },

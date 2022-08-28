@@ -13,6 +13,8 @@ import '@/style/index.less'
 // import flexible plug-in
 import 'amfe-flexible'
 
+// timeFormat filter
+import '@/filter'
 
 new Vue({
   store,

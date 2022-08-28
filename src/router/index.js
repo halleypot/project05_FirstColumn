@@ -15,8 +15,11 @@ const routes = [
     { path: 'home', component: () => import('@/views/home') }, 
     { path: 'ask', component: () => import('@/views/ask') }, 
     { path: 'video', component: () => import('@/views/video') },
-    { path: 'user', component: () => import('@/views/user'), meta:{needLogin: true} },
-  ] }
+    { path: 'user', component: () => import('@/views/user'), meta:{needLogin: true}, }, 
+  ] },
+
+  { path: '/user/edit', component: () => import('@/views/user/edit.vue'), meta:{needLogin: true} },
+  { name: 'detail', path: '/home/detail', component: () => import('@/views/detail')}
 ]
 
 const router = new VueRouter({

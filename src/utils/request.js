@@ -4,7 +4,7 @@ import { Toast } from 'vant';
 import router from '@/router'
 
 const request = axios.create({
-  baseURL: 'http://toutiao.itheima.net'
+  baseURL: 'http://geek.itheima.net/'
 })
 
 const tokenReq = axios.create( {
