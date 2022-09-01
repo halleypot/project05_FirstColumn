@@ -23,20 +23,46 @@
       <!-- 内容详情 -->
       <div class="content" v-html="articleInfo.content"></div>
       <van-divider>end</van-divider>
-      
+
       <div class="thumbup">
-        <van-button plain hairline round icon="good-job-o" type="primary" v-if="articleInfo.attitude === 1">点赞</van-button>
-        <van-button plain hairline round icon="good-job-o" v-else>点赞</van-button>
-        <van-button plain hairline round icon="delete-o" type="danger" v-if="articleInfo.attitude === 0">不喜欢</van-button>
-        <van-button plain hairline round icon="delete-o" type="danger" v-else>不喜欢</van-button>
+        <van-button
+          plain
+          hairline
+          round
+          icon="good-job-o"
+          type="primary"
+          v-if="articleInfo.attitude === 1"
+          >点赞</van-button
+        >
+        <van-button plain hairline round icon="good-job-o" v-else
+          >点赞</van-button
+        >
+        <van-button
+          plain
+          hairline
+          round
+          icon="delete-o"
+          type="danger"
+          v-if="articleInfo.attitude === 0"
+          >不喜欢</van-button
+        >
+        <van-button plain hairline round icon="delete-o" type="danger" v-else
+          >不喜欢</van-button
+        >
       </div>
     </div>
+    <!-- 评论内容 -->
+    <comment :art_id="art_id"> </comment>
   </div>
 </template>
 
 <script>
 import { getArticleDetailAPI } from "@/api";
+
 export default {
+  components: {
+    comment: () => import("@/views/detail/component/comment.vue"),
+  },
   data() {
     return {
       art_id: this.$route.query.article_id,
@@ -47,7 +73,7 @@ export default {
 
   created() {
     getArticleDetailAPI(this.art_id).then((res) => {
-      console.log(res);
+      // console.log(res);
       this.articleInfo = res.data.data;
     });
   },
