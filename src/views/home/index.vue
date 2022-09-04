@@ -12,7 +12,7 @@
       </template>
       <!-- 导航栏右侧按钮 -->
       <template #right>
-        <van-button>
+        <van-button @click="$router.push('/home/search')">
           <van-icon name="search" color="#fff" />
           搜索
         </van-button>
@@ -56,6 +56,7 @@
 
 <script>
 import { getUserChannelAPI } from "@/api";
+import { getChannel } from '@/utils/myChannel';
 
 export default {
   components: {
@@ -89,7 +90,13 @@ export default {
   },
 
   created() {
-    this.createChannel();
+    const memory = getChannel()
+    const token = this.$store.state.myToken.token
+
+    if (token || !memory) this.createChannel()
+
+    else this.myChannels = memory
+    
   },
 };
 </script>
@@ -101,7 +108,7 @@ export default {
     padding-right: 30px;
     .sidebar {
       position: absolute;
-      right: 0;
+      right: 5px;
       top: 0;
       height: 44px;
       line-height: 44px;

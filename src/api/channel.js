@@ -13,10 +13,18 @@ export function getChannels() {
     })
 }
 
-export function delChannel(target) {
+export function addChannel(data){
     return request( {
-        url: `/v1_0/user/channels/${target}`,
-        method: 'DELETE',
+        url: '/v1_0/user/channels',
+        method: 'PATCH',
+        data
+    })
+}
+
+export function delChannel(targetId) {
+    return request( {
+        url: `/v1_0/user/channels/${targetId}`,
+        method: "DELETE",
 
     })
 }

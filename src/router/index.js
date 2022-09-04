@@ -5,10 +5,10 @@ import {Toast} from 'vant'
 
 Vue.use(VueRouter)
 
-// 导入组件
+// 导入组件 (原始方法 vs. 动态导入)
 import login from '@/views/login'
 const routes = [
-  {path: '', redirect: '/login'},
+  {path: '', redirect: '/layout/home'},
   {path: '/login', component: login},
   {path: '/layout', component: () => import('@/views/layout'), 
   children: [
@@ -19,7 +19,8 @@ const routes = [
   ] },
 
   { path: '/user/edit', component: () => import('@/views/user/edit.vue'), meta:{needLogin: true} },
-  { name: 'detail', path: '/home/detail', component: () => import('@/views/detail')}
+  { name: 'detail', path: '/home/detail', component: () => import('@/views/detail')},
+  { path: '/home/search', component: () => import('@/views/search')}
 ]
 
 const router = new VueRouter({

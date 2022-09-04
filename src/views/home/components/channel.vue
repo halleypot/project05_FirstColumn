@@ -7,8 +7,7 @@
           plain
           type="danger"
           class="btnEdit"
-          size="mini" 
-          plain 
+          size="mini"
           @click="isEdit = !isEdit"
           >{{ isEdit ? "编辑" : "取消" }}</van-button
         >
@@ -29,7 +28,7 @@
             name="cross"
             class="crossIcon"
             v-if="!isEdit && index"
-            @click.stop="delChannel(index)"
+            @click.stop="delMyChannel(index, item.id)"
           />
         </template>
       </van-grid-item>
@@ -43,51 +42,71 @@
         v-for="(item, index) in otherChannels"
         :key="index"
         :text="item.name"
-        @click="addChannel(index)"
+        @click="addMyChannel(item)"
       />
     </van-grid>
   </div>
 </template>
 
 <script>
-import { getChannelsAPI } from "@/api";
+import { getChannelsAPI, addChannelAPI, delChannelAPI } from "@/api";
+import { setChannel } from "@/utils/myChannel";
 
 export default {
   props: ["myChannels", "active"],
+
   data() {
     return {
       allChannels: [],
       isEdit: true,
+      token: this.$store.state.myToken.token || {},
     };
   },
 
   methods: {
-    delChannel(index) {
-      
-      this.myChannels.splice(index , 1)
-      if(index < this.active ) {
-        this.$emit('changeChannel', this.active - 1);
-      }
-    },
+    // 删除频道
+    delMyChannel(index, id) {
+      this.myChannels.splice(index, 1);
+          if (index < this.active) {
+            this.$emit("changeChannel", this.active - 1);
+          }
 
-    addChannel(item) {
-      this.myChannels.push(item)
-    }
+          // 判断是否携带token
+          if (this.token) {
+            delChannelAPI(id);
+          } else 
+            setChannel(this.myChannels);
+
+          this.$toast.success("删除成功哟")
+
+    },
+    // 新增频道
+    addMyChannel(item) {
+      this.myChannels.push(item);
+
+      // const token = this.$store.state.myToken.token;
+
+      // 保存到本地
+      if (!this.token) setChannel(this.myChannels);
+      // 保存内容到服务器
+      else {
+        addChannelAPI({
+          channels: [{ id: item.id, seq: this.myChannels.length + 1 }],
+        });
+      }
+      this.$toast.success("添加频道成功！");
+    },
   },
 
   async created() {
-    // const res = await getUserChannel();
-    // console.log(res);
-    // this.myChannels = res.data.data.channels;
+    const res = await getChannelsAPI();
 
-    const allChannels = await getChannelsAPI();
-    // console.log(allChannels);
-    this.allChannels = allChannels.data.data.channels;
+    this.allChannels = res.data.data.channels;
   },
 
   computed: {
     otherChannels() {
-      const ids = this.myChannels.map(item => item.id);
+      const ids = this.myChannels.map((item) => item.id);
 
       return this.allChannels.filter((item) => {
         return !ids.includes(item.id);

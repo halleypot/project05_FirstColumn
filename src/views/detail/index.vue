@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <van-nav-bar title="文章详情" left-arrow />
+    <van-nav-bar title="文章详情" left-arrow @click-left="$router.go(-1)" />
     <div class="article">
       <h3>{{ articleInfo.title }}</h3>
       <div class="author">
