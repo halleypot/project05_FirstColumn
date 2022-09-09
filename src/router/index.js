@@ -12,15 +12,17 @@ const routes = [
   {path: '/login', component: login},
   {path: '/layout', component: () => import('@/views/layout'), 
   children: [
-    { path: 'home', component: () => import('@/views/home') }, 
+    { path: 'home', component: () => import('@/views/home'), meta:{needKeep: true} }, 
     { path: 'ask', component: () => import('@/views/ask') }, 
     { path: 'video', component: () => import('@/views/video') },
     { path: 'user', component: () => import('@/views/user'), meta:{needLogin: true}, }, 
   ] },
 
   { path: '/user/edit', component: () => import('@/views/user/edit.vue'), meta:{needLogin: true} },
+  { path: '/user/chatRobot', component: () => import('@/views/chatRobot'), meta:{needLogin: true} },
   { name: 'detail', path: '/home/detail', component: () => import('@/views/detail')},
-  { path: '/home/search', component: () => import('@/views/search')}
+  { path: '/home/search', component: () => import('@/views/search')},
+  { path: '/search/result', component: () => import('@/views/searchResult') }
 ]
 
 const router = new VueRouter({

@@ -36,7 +36,7 @@
     <!-- bottom userInfo -->
     <van-cell-group>
       <van-cell title="编辑资料" icon="edit" is-link to="/user/edit" />
-      <van-cell title="小智同学" icon="chat-o" is-link />
+      <van-cell to="/user/chatRobot" title="小智同学" icon="chat-o" is-link />
       <van-cell title="系统设置" icon="setting-o" is-link />
       <van-cell title="退出登录" icon="info-o" is-link @click="logout"/>
     </van-cell-group>

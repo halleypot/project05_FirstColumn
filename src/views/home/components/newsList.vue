@@ -1,5 +1,5 @@
 <template>
-  <div class="newsList">
+  <div class="newsList" ref="newsBox">
     <!-- 新闻列表 -->
     <van-pull-refresh
       v-model="refreshing"
@@ -12,6 +12,7 @@
         :finished="finished"
         finished-text="没有更多了"
         @load="onLoad"
+        
       >
         <van-cell
           v-for="(item, index) in list"
@@ -59,11 +60,13 @@ export default {
       finished: false,
       list: [],
       timestamp: Date.now(),
-      refreshing: false
+      refreshing: false,
+      scrollTop: '',
     };
   },
 
   methods: {
+   
     async onLoad() {
       if(this.refreshing) {
         this.list = []
@@ -95,6 +98,17 @@ export default {
       this.onLoad()
     },
   },
+
+  activated() {
+     this.$refs.newsBox.scrollTop = this.scrollTop
+  },
+
+  mounted () {
+    this.$refs.newsBox.onscroll = () => {
+      this.scrollTop = this.$refs.newsBox.scrollTop
+      // console.log(this.scrollTop);
+    }
+  }
 };
 </script>
 

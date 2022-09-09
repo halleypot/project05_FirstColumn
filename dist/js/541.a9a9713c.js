@@ -1,0 +1,1 @@
+"use strict";(self["webpackChunkheimatoutiao"]=self["webpackChunkheimatoutiao"]||[]).push([[541],{1541:function(t,u,e){e.r(u),e.d(u,{default:function(){return r}});var i=function(){var t=this,u=t._self._c;return u("div",{staticClass:"video"},[t._v(" video ! ")])},n=[],a={},l=a,s=e(1001),o=(0,s.Z)(l,i,n,!1,null,null,null),r=o.exports}}]);

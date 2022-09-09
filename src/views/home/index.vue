@@ -69,6 +69,7 @@ export default {
       channel_id: "",
       channelShow: false,
       active: 0,
+      
     };
   },
 
@@ -98,6 +99,7 @@ export default {
     else this.myChannels = memory
     
   },
+  
 };
 </script>
 

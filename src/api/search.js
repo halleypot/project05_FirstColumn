@@ -6,3 +6,10 @@ export function searchSuggestion(params) {
         params
     })
 }
+
+export function search(params) {
+    return request( {
+        url: '/v1_0/search',
+        params,
+    })
+}
