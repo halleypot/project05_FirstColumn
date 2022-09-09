@@ -1,4 +1,4 @@
-# heimatoutiao
+# Frontend Resource
 
 ## Project setup
 ```
